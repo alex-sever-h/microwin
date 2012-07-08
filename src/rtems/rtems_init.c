@@ -151,10 +151,10 @@ void *POSIX_Init( void *argument )
  *  too high.
  */
 #define CONFIGURE_MAXIMUM_MESSAGE_QUEUES              20
-#define CONFIGURE_MAXIMUM_POSIX_MUTEXES               40
-#define CONFIGURE_MAXIMUM_POSIX_THREADS               10
-#define CONFIGURE_MAXIMUM_SEMAPHORES                  40
-#define CONFIGURE_MAXIMUM_TASKS                       10
+#define CONFIGURE_MAXIMUM_POSIX_MUTEXES               80
+#define CONFIGURE_MAXIMUM_POSIX_THREADS               30
+#define CONFIGURE_MAXIMUM_SEMAPHORES                  80
+#define CONFIGURE_MAXIMUM_TASKS                       30
 #define CONFIGURE_LIBIO_MAXIMUM_FILE_DESCRIPTORS      20
 #define CONFIGURE_USE_IMFS_AS_BASE_FILESYSTEM
 #define CONFIGURE_INIT_TASK_ATTRIBUTES    RTEMS_FLOATING_POINT
