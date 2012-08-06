@@ -28,12 +28,16 @@
 #define png_jmpbuf(png_ptr)	((png_ptr)->jmpbuf)
 #endif
 
+// remove deprecated
+#if 0
 /* This is a quick user defined function to read from the buffer instead of from the file pointer */
 static void
 png_read_buffer(png_structp pstruct, png_bytep pointer, png_size_t size)
 {
 	GdImageBufferRead(pstruct->io_ptr, pointer, size);
 }
+
+#endif
 
 PSD
 GdDecodePNG(buffer_t * src)
@@ -46,6 +50,7 @@ GdDecodePNG(buffer_t * src)
 	double file_gamma;
 	int channels, data_format;
 	PSD pmd;
+	FILE *pngFILE;
 
 	GdImageBufferSeekTo(src, 0UL);
 
@@ -68,9 +73,14 @@ GdDecodePNG(buffer_t * src)
 		return NULL;
 	}
 
+	pngFILE = fmemopen(src->start, src->size ,"r");
+	if(!pngFILE)
+		goto nomem;
+
 	/* Set up the input function */
-	png_set_read_fn(state, src, png_read_buffer);
-	/* png_init_io(state, src); */
+	png_init_io(state, pngFILE);
+	// remove deprecated
+	//png_set_read_fn(state, src, png_read_buffer);
 
 	png_set_sig_bytes(state, 8);
 
@@ -152,6 +162,7 @@ GdDecodePNG(buffer_t * src)
 	png_read_end(state, NULL);
 	free(rows);
 	png_destroy_read_struct(&state, &pnginfo, NULL);
+	fclose(pngFILE);
 
 	return pmd;
 

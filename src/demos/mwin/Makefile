@@ -62,7 +62,9 @@ DEMOS += $(MW_DIR_BIN)/mterm
 endif
 
 ifneq ($(ARCH), ELKS)
+ifneq ($(ARCH), RTEMS)
 DEMOS += $(MW_DIR_BIN)/muserfd
+endif
 endif
 
 endif

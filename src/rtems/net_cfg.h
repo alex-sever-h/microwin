@@ -26,7 +26,7 @@
 /*
  * Loopback interface
  */
-// deprecated initialization 
+// deprecated initialization -- should be removed in a future version
 
 #if 0
 
