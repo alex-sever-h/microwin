@@ -50,7 +50,11 @@ GdDecodePNG(buffer_t * src)
 	double file_gamma;
 	int channels, data_format;
 	PSD pmd;
-	FILE *pngFILE;
+	FILE *png_file = NULL;
+
+	png_file = fmemopen(src->start, src->size,"rb");
+	if(!png_file)
+	  goto nomem;
 
 	GdImageBufferSeekTo(src, 0UL);
 
@@ -59,6 +63,8 @@ GdDecodePNG(buffer_t * src)
 
 	if(png_sig_cmp(hdr, 0, 8))
 		return NULL;
+
+	fseek(png_file, 8, SEEK_SET);
 
 	if(!(state = png_create_read_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL)))
 		goto nomem;
@@ -69,19 +75,13 @@ GdDecodePNG(buffer_t * src)
 	}
 
 	if(setjmp(png_jmpbuf(state))) {
-		png_destroy_read_struct(&state, &pnginfo, NULL);
-		return NULL;
+	    DPRINTF("GdDecodePNG: error reading png ... jumped out of libpng \n");
+	    png_destroy_read_struct(&state, &pnginfo, NULL);
+	    return NULL;
 	}
 
-	pngFILE = fmemopen(src->start, src->size ,"r");
-	if(!pngFILE)
-		goto nomem;
-
 	/* Set up the input function */
-	png_init_io(state, pngFILE);
-	// remove deprecated
-	//png_set_read_fn(state, src, png_read_buffer);
-
+	png_init_io(state, png_file);
 	png_set_sig_bytes(state, 8);
 
 	png_read_info(state, pnginfo);
@@ -162,7 +162,7 @@ GdDecodePNG(buffer_t * src)
 	png_read_end(state, NULL);
 	free(rows);
 	png_destroy_read_struct(&state, &pnginfo, NULL);
-	fclose(pngFILE);
+	fclose(png_file);
 
 	return pmd;
 

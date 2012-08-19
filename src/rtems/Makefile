@@ -114,7 +114,7 @@ ifeq ($(HAVE_T1LIB_SUPPORT),Y)
 	cp ../../src/fonts/type1/*.afm rootfs/fonts/type1/afm
 	mkdir -p rootfs/fonts/type1/enc
 	cp ../../src/fonts/type1/*.enc rootfs/fonts/type1/enc
-	mkdir -p rootfs/fonts/type1/type1
+	mkdir -p rootfs/fonts/type1/pfb
 	cp ../../src/fonts/type1/*.pfb rootfs/fonts/type1/pfb
 endif
 ifeq ($(HAVE_FREETYPE_2_SUPPORT),Y)
