@@ -203,7 +203,7 @@ endif
 HAVE_FREETYPE_SUPPORT    = N
 INCFTLIB                 = /usr/include
 LIBFTLIB                 = /usr/lib/libttf.so
-FREETYPE_FONT_DIR        = "fonts/truetype"
+FREETYPE_FONT_DIR        = "/fonts/truetype"
 
 ####################################################################
 # Support for many kinds of font thru FreeType 2.x
@@ -212,7 +212,7 @@ FREETYPE_FONT_DIR        = "fonts/truetype"
 LIBFT2LIB = $(RTEMS_MAKEFILE_PATH)/lib/libfreetype.a
 INCFT2LIB = $(RTEMS_MAKEFILE_PATH)/lib/include
 
-ifeq ($(shell test -r $(LIBTIFF) && echo N),Y)
+ifeq ($(shell test -r $(LIBTIFF) && echo Y),Y)
   HAVE_FREETYPE_2_SUPPORT  = Y
   LIBFT2LIB                = -lfreetype
 else
