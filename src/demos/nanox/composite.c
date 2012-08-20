@@ -11,9 +11,14 @@
 #define BUFFERED_WINDOWS		1
 #define TEST_DRAWIMAGEPARTIAL	0		/* =1 to use GrDrawImagePartToFit*/
 
-//#define FONT	"DejaVuSans-Bold.ttf"
-#define FONT	"arial.ttf"
-#define IMAGE	 "mwin/bmp/alphademo.png"
+#ifdef RTEMS
+#define FONT    "lt1-r-omega-serif"
+#define IMAGE    "/logos/RTEMS_logo.png"
+#else
+//#define FONT  "DejaVuSans-Bold.ttf"
+#define FONT    "arial.ttf"
+#define IMAGE    "mwin/bmp/alphademo.png"
+#endif
 
 GR_WINDOW_ID wid = 0, p1, p2 = 0;
 GR_IMAGE_INFO image_info;

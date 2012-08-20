@@ -9,16 +9,19 @@
 
 #define ANTIALIAS	0		/* set =1 to enable anti aliasing*/
 
-#if HAVE_T1LIB_SUPPORT
-#define FONTNAME "fonts/type1/bchr.pfb"
-#elif HAVE_FREETYPE_2_SUPPORT
+#define TTF_FONT 1
+//#define T1_FONT
+
+#if HAVE_T1LIB_SUPPORT & T1_FONT
+#define FONTNAME "/fonts/type1/pfb/bchr.pfb"
+#elif HAVE_FREETYPE_2_SUPPORT & TTF_FONT
 #define FONTNAME "lt1-r-omega-serif"
 //#define FONTNAME "termcs1"
 //#define FONTNAME "lucon"
 //#define FONTNAME "cour"
 #elif HAVE_PCF_SUPPORT
 //#define FONTNAME	"jiskan24.pcf.gz"
-#define FONTNAME	"helvB12.pcf.gz"
+#define FONTNAME	"/fonts/pcf/lubI24.pcf"
 //#define FONTNAME	"helvB12_lin.pcf.gz"
 //#define FONTNAME	"fonts/bdf/symb18.pcf"
 #elif HAVE_FNT_SUPPORT
@@ -65,7 +68,7 @@ int main(int argc, char **argv)
   GrSelectEvents(window, GR_EVENT_MASK_KEY_DOWN |
 		GR_EVENT_MASK_CLOSE_REQ | GR_EVENT_MASK_EXPOSURE);
 
-  if ((file = fopen("bin/ftdemo.txt", "r")) == NULL) {
+  if ((file = fopen("/demo/ftdemo.txt", "r")) == NULL) {
 	printf("Can't open text file\n");
 	return (-1);
   }
